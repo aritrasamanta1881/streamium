@@ -43,7 +43,7 @@
         <div class="flex items-center gap-6">
           <a href="/dmca" class="text-gray-400 hover:text-white transition-colors">DMCA</a>
           <a
-            href="https://github.com/gmonarque/streamium"
+            href="https://github.com/aritrasamanta1881/streamium/"
             target="_blank"
             rel="noopener noreferrer"
             class="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
