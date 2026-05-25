@@ -19,6 +19,9 @@ A SvelteKit streaming UI that embeds content from third-party providers and uses
 - SvelteKit + TypeScript + Tailwind CSS
 - Prisma + MySQL
 - JWT auth, Zod validation
+  
+## Preview 
+A preview site is available at https://streamium.onrender.com
 
 ## Quickstart (Local)
 
