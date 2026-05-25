@@ -21,7 +21,10 @@ A SvelteKit streaming UI that embeds content from third-party providers and uses
 - JWT auth, Zod validation
   
 ## Preview 
-A preview site is available at https://streamium.onrender.com
+ - A preview site is available at https://streamium.onrender.com
+
+## ⚠️ Deployment Restriction
+ - Please don't Web Host it, You can use it on localhost.
 
 ## Quickstart (Local)
 
