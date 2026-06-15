@@ -19,7 +19,7 @@ export default defineConfig({
           {
             src: "/favicon.png",
             sizes: "192x192 512×512",
-            type: "image/png"
+            type: "image/png",
             purpose: "any maskable"
           },
           
