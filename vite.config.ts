@@ -8,6 +8,8 @@ export default defineConfig({
     SvelteKitPWA({
       registerType: "autoUpdate",
       strategies: "generateSW", //
+      srcDir: 'src',   //
+      scope: '/',     //
       manifest: {
         name: "Streamium",
         short_name: "Streamium",
