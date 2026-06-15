@@ -7,8 +7,7 @@ export default defineConfig({
     sveltekit(),
     SvelteKitPWA({
       registerType: "autoUpdate",
-      filename: "manifest.json",
-      useCredentials: false, //
+      strategies: "generateSW", //
       manifest: {
         name: "Streamium",
         short_name: "Streamium",
