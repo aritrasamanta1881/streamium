@@ -13,7 +13,7 @@ export default defineConfig({
         description: "Stream anytime, anywhere!!",
         theme_color: "#111827",
         background_color: "#111827",
-        display: "standalone",
+        display: "fullscreen",
         start_url: "/",
         icons: [
           {
