@@ -9,6 +9,12 @@
 
   onMount(async () => {
     if (browser) {
+                      // Register PWA Service Worker
+      if ('serviceWorker' in navigator) {
+        const { registerSW } = await import('virtual:pwa-register');
+        registerSW({ immediate: true });
+      }
+
       try {
 
         await authStore.initialize();
