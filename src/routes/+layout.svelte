@@ -31,8 +31,25 @@
       }
     }
   });
+
+
+  onMount(async () => {
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      const { registerSW } = await import('virtual:pwa-register');
+      registerSW({
+        immediate: true,
+        onNeedRefresh() {
+          console.log('New content available, please refresh.');
+        },
+        onOfflineReady() {
+          console.log('App is ready to work offline.');
+        }
+      });
+    }
+  });
 </script>
 
+ 
 <div class="min-h-screen bg-gray-900 text-white">
   <Navbar />
 
