@@ -9,42 +9,20 @@
 
   onMount(async () => {
     if (browser) {
-                      // Register PWA Service Worker
-      if ('serviceWorker' in navigator) {
-        const { registerSW } = await import('virtual:pwa-register');
-        registerSW({ immediate: true });
-      }
-
       try {
-
+        // Initialize user authentication
         await authStore.initialize();
 
-
+        // Load media provider URLs
         await loadProviderUrls();
 
-
+        // Fetch watchlist if the user is authenticated
         if ($authStore.isAuthenticated) {
           await watchlistStore.getWatchlist();
         }
       } catch (error) {
         console.error('Failed to load initial data:', error);
       }
-    }
-  });
-
-
-  onMount(async () => {
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      const { registerSW } = await import('virtual:pwa-register');
-      registerSW({
-        immediate: true,
-        onNeedRefresh() {
-          console.log('New content available, please refresh.');
-        },
-        onOfflineReady() {
-          console.log('App is ready to work offline.');
-        }
-      });
     }
   });
 </script>
