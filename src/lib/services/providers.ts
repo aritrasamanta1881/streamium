@@ -14,20 +14,21 @@ export interface Provider {
 }
 
 export const providers: Provider[] = [
-  {
-    id: "vidsrc",
-    name: "VidSrc",
+{
+    id: "vidsrcpro",
+    name: "VidSrc Pro",
     getEmbedUrl: (mediaId, type, season, episode) => {
       const urls = get(providerUrls);
-      if (!urls?.vidsrc) return "";
+      if (!urls) return "";
 
       if (type === "movie") {
-        return `${urls.vidsrc}/movie/${mediaId}?autoPlay=true`;
+        return `${urls.vidsrcpro}/movie/${mediaId}`;
       } else {
+
         if (typeof season !== "undefined" && typeof episode !== "undefined") {
-          return `${urls.vidsrc}/tv/${mediaId}/${season}/${episode}?autoPlay=true&autoNext=true`;
+          return `${urls.vidsrcpro}/tv/${mediaId}/${season}/${episode}`;
         }
-        return `${urls.vidsrc}/tv/${mediaId}?autoPlay=true`;
+        return `${urls.vidsrcpro}/tv/${mediaId}`;
       }
     },
   },
@@ -48,23 +49,7 @@ export const providers: Provider[] = [
       }
     },
   },
-  {
-    id: "111movies",
-    name: "111Movies",
-    getEmbedUrl: (mediaId, type, season, episode) => {
-      const urls = get(providerUrls);
-      if (!urls?.movies111) return "";
-
-      if (type === "movie") {
-        return `${urls.movies111}/movie/${mediaId}`;
-      } else {
-        if (typeof season !== "undefined" && typeof episode !== "undefined") {
-          return `${urls.movies111}/tv/${mediaId}/${season}/${episode}`;
-        }
-        return `${urls.movies111}/tv/${mediaId}/1/1`;
-      }
-    },
-  },
+  
   {
     id: "2embed",
     name: "2Embed",
