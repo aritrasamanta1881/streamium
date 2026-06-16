@@ -54,7 +54,7 @@ streamium/
 
 ## ⚠️ Deployment Restriction
  - Please don't Web Host it, You can use it on localhost.
-   
+
 ## Getting Started
 
 ### 1. Install Dependencies
