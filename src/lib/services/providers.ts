@@ -14,24 +14,7 @@ export interface Provider {
 }
 
 export const providers: Provider[] = [
-{
-    id: "vidsrcpro",
-    name: "VidSrc Pro",
-    getEmbedUrl: (mediaId, type, season, episode) => {
-      const urls = get(providerUrls);
-      if (!urls) return "";
 
-      if (type === "movie") {
-        return `${urls.vidsrcpro}/movie/${mediaId}`;
-      } else {
-
-        if (typeof season !== "undefined" && typeof episode !== "undefined") {
-          return `${urls.vidsrcpro}/tv/${mediaId}/${season}/${episode}`;
-        }
-        return `${urls.vidsrcpro}/tv/${mediaId}`;
-      }
-    },
-  },
   {
     id: "vidlink",
     name: "VidLink",
