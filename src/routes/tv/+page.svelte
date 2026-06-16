@@ -191,13 +191,6 @@ function toggleDescription(id: number) {
           season={selectedSeason}
           episode={selectedEpisode}
         />
-<VideoPlayer
-          mediaId={selectedShow.id}
-          mediaType="tv"
-          title={selectedShow.name || 'Unknown Show'}
-          season={selectedSeason}
-          episode={selectedEpisode}
-        />
 
         <div class="mt-6 border-t border-gray-700 pt-6">
           <div class="flex flex-col gap-4 mb-6">
