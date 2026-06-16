@@ -4,21 +4,6 @@
   import MediaFilters from '$lib/components/MediaFilters.svelte';
   import VideoPlayer from '$lib/components/VideoPlayer.svelte';
   import type { TMDBMediaResponse } from '$lib/types/tmdb';
-  import { slide } from 'svelte/transition';
-
-  interface Season {
-    season_number: number;
-    name: string;
-    episode_count: number;
-  }
-
-interface Episode {
-  episode_number: number;
-  name: string;
-  overview: string;
-  air_date: string;
-  still_path: string | null;
-}
 
   let shows: TMDBMediaResponse[] = [];
   let loading = true;
@@ -31,27 +16,9 @@ interface Episode {
   let selectedShow: TMDBMediaResponse | null = null;
   let selectedSeason: number | undefined;
   let selectedEpisode: number | undefined;
-  let seasons: Season[] = [];
-  let episodes: Episode[] = [];
+  let seasons = [];
+  let episodes = [];
   let showEpisodeModal = false;
-  let expandedEpisodeId: number | null = null;
-  let sortOrder: 'desc' | 'asc' = 'desc';
-  let searchQuery = '';
-
- // Add these reactive statements
-$: sortedEpisodes = [...episodes].sort((a, b) => 
-  sortOrder === 'desc' ? b.episode_number - a.episode_number : a.episode_number - b.episode_number
-);
-
-$: filteredEpisodes = sortedEpisodes.filter(e => 
-  e.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-  e.episode_number.toString().includes(searchQuery)
-);
-
-function toggleDescription(id: number) {
-  expandedEpisodeId = expandedEpisodeId === id ? null : id;
-}
-
 
   async function fetchShows(currentPage = 1, reset = false) {
     loading = true;
@@ -93,7 +60,7 @@ function toggleDescription(id: number) {
       const response = await fetch(`/api/tv/${showId}/seasons`);
       if (response.ok) {
         const data = await response.json();
-        seasons = data.seasons.filter((s: Season) => s.season_number > 0);
+        seasons = data.seasons.filter(s => s.season_number > 0);
         if (seasons.length > 0) {
           await selectSeason(seasons[0].season_number);
         }
@@ -187,56 +154,10 @@ function toggleDescription(id: number) {
         <VideoPlayer
           mediaId={selectedShow.id}
           mediaType="tv"
-          title={selectedShow.name || 'Unknown Show'}
-          season={selectedSeason}
+          title={selectedShow.name}
+          {selectedSeason}
           episode={selectedEpisode}
         />
-
-        <div class="mt-6 border-t border-gray-700 pt-6">
-          <div class="flex flex-col gap-4 mb-6">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-bold text-white">Episodes</h3>
-              <select 
-                class="bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg text-sm cursor-pointer"
-                bind:value={selectedSeason} 
-                on:change={() => selectSeason(selectedSeason)}
-              >
-                {#each seasons as s} <option value={s.season_number}>Season {s.season_number}</option> {/each}
-              </select>
-            </div>
-            <div class="flex gap-2">
-              <input type="text" placeholder="Search episode..." bind:value={searchQuery} class="flex-1 bg-gray-900 border border-gray-700 text-white p-3 rounded-lg text-sm outline-none focus:border-primary-500" />
-              <button on:click={() => sortOrder = sortOrder === 'desc' ? 'asc' : 'desc'} class="px-4 py-2 bg-gray-800 rounded-lg text-white font-bold text-sm">
-                {sortOrder === 'desc' ? 'A↓Z' : 'A↑Z'}
-              </button>
-            </div>
-          </div>
-
-          <div class="space-y-3">
-            {#each filteredEpisodes as ep}
-              <div class="bg-gray-900 border border-gray-700 rounded-xl p-3" class:border-primary-500={selectedEpisode === ep.episode_number}>
-                <div class="flex items-center gap-4">
-                  <div class="w-24 h-16 bg-gray-800 rounded-lg relative overflow-hidden flex-shrink-0 cursor-pointer" on:click={() => selectEpisode(ep.episode_number)}>
-                    {#if ep.still_path} <img src="https://image.tmdb.org/t/p/w200{ep.still_path}" class="w-full h-full object-cover" alt="thumb" /> {/if}
-                    <span class="absolute bottom-1 left-1 text-[10px] font-bold bg-black/70 px-1 text-white">E{ep.episode_number}</span>
-                  </div>
-                  <div class="flex-1 cursor-pointer" on:click={() => selectEpisode(ep.episode_number)}>
-                    <h4 class="font-bold text-white text-sm sm:text-base">{ep.episode_number}. {ep.name}</h4>
-                  </div>
-                  <button on:click|stopPropagation={() => toggleDescription(ep.episode_number)} class="p-2 text-gray-400 hover:text-white">
-                    <svg class="w-6 h-6 transition-transform" class:rotate-180={expandedEpisodeId === ep.episode_number} viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 9l-7 7-7-7"/></svg>
-                  </button>
-                </div>
-                {#if expandedEpisodeId === ep.episode_number}
-                  <div transition:slide class="mt-4 pt-4 border-t border-gray-800 text-gray-400 text-sm">
-                    <p class="mb-4 leading-relaxed">{ep.overview || 'No description available.'}</p>
-                    <button on:click={() => selectEpisode(ep.episode_number)} class="bg-primary-500 text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-primary-600 transition-colors">▶ Play Episode</button>
-                  </div>
-                {/if}
-              </div>
-            {/each}
-          </div>
-        </div> 
       </div>
     </div>
   {/if}
