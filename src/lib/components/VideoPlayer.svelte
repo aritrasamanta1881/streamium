@@ -21,10 +21,6 @@
   onMount(() => {
     if (browser) {
       window.addEventListener('message', handleProviderMessage);
-window.open = function() {
-  console.log("Streamium Blocked a pop-up ad!");
-  return null;
-     };
     }
   });
 
@@ -96,7 +92,6 @@ window.open = function() {
     scrolling="no"
     allowfullscreen={true}
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"
     loading="lazy"
     on:load={handleIframeLoad}
     on:error={handleIframeError}
