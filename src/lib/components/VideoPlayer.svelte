@@ -21,6 +21,10 @@
   onMount(() => {
     if (browser) {
       window.addEventListener('message', handleProviderMessage);
+window.open = function() {
+  console.log("Streamium Blocked a pop-up ad!");
+  return null;
+     };
     }
   });
 
