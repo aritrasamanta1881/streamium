@@ -147,7 +147,7 @@
                         <button
                           type="button"
                           class="px-4 py-2 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors whitespace-nowrap"
-                          on:click={() => showEpisodeModal = true}
+                          on:click={() => { showEpisodeModal = true; }}
                         >
                           {selectedSeason && selectedEpisode
                             ? `S${selectedSeason}E${selectedEpisode}`
