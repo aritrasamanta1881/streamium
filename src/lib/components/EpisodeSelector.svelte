@@ -22,11 +22,12 @@
   let selectedSeason: number | undefined;
   let selectedEpisode: number | undefined;
 
-  $: if (showModal && mediaId && !seasons.length) {
+  $: if (showModal) {
     loadSeasons();
-  }
+}
 
   async function loadSeasons() {
+    if (!mediaId) return;
     try {
       const response = await fetch(`/api/tv/${mediaId}/seasons`);
       if (response.ok) {
